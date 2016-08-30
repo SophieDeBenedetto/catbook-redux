@@ -14,10 +14,12 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^15.3.1",
+    "react-favicon": "0.0.4",
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
+    "serve-favicon": "^2.3.0",
     "toastr": "^2.1.2"
   },
   "devDependencies": {

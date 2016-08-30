@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {browserHistory} from 'react-router'
+import {browserHistory} from 'react-router';
 import CatList from './CatList';
 
 class CatsPage extends React.Component {
@@ -21,7 +21,7 @@ class CatsPage extends React.Component {
 }
 
 CatsPage.propTypes = {
-  cats: PropTypes.array.isRequired,
+  cats: PropTypes.array.isRequired
   // actions: PropTypes.object.isRequired
 };
 
