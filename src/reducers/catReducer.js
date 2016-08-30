@@ -4,7 +4,8 @@ import initialState from './initialState';
 export default function courseReducer(state = initialState.cats, action) {
   // state variable here reps just an array of courses
   switch(action.type) {
-
+    case types.LOAD_CATS_SUCCESS:
+      return action.cats; 
     default: 
       return state;
   }

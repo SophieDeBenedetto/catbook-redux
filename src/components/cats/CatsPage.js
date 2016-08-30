@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router'
+import CatList from './CatList';
 
 class CatsPage extends React.Component {
   constructor(props, context) {
@@ -9,31 +10,31 @@ class CatsPage extends React.Component {
   }
 
   render() {
-    // const courses = this.props.courses;
+    const cats = this.props.cats;
     return (
       <div>
         <h1>Cats</h1>
-        list of cats coming sooooon!
+        <CatList cats={cats} />
       </div>
     );
   }
 }
 
-// CoursesPage.propTypes = {
-//   courses: PropTypes.array.isRequired,
-//   actions: PropTypes.object.isRequired
-// };
+CatsPage.propTypes = {
+  cats: PropTypes.array.isRequired,
+  // actions: PropTypes.object.isRequired
+};
 
 // connect returns a function, which we then invoke with an arg of CoursesPage
 // iif!! | kind of like elixir piping
 
-// function mapStateToProps(state, ownProps) {
-//   // state means redux store state
-//   // means our component has this.props.courses
-//   return {
-//     courses: state.courses
-//   };
-// }
+function mapStateToProps(state, ownProps) {
+  // state means redux store state
+  // means our component has this.props.cats
+  return {
+    cats: state.cats
+  };
+}
 
 // function mapDispatchToProps(dispatch) {
 //   return {
@@ -42,9 +43,8 @@ class CatsPage extends React.Component {
 // }
 
 
-// export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps)(CatsPage);
 
-export default CatsPage;
 
 
 
