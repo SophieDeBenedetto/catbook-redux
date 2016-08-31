@@ -25,6 +25,7 @@ class CatPage extends React.Component {
   }
 
   updateCatState(event) {
+    debugger;
     const field = event.target.name;
     const cat = this.state.cat;
     cat[field] = event.target.value;
