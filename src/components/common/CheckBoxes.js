@@ -8,7 +8,6 @@ class CheckBoxes extends React.Component {
   }
 
   checkBox(item) {
-    console.log(item)
     return (
       <div key={item.id}>
         <label>{item.name}</label>
