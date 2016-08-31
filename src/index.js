@@ -8,7 +8,7 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import {loadCats} from './actions/catActions';
 import '../node_modules/toastr/build/toastr.min.css';
-
+  
 const store = configureStore();
 
 // 1. Call dispatch on the store with an argument of this action that makes an API request
