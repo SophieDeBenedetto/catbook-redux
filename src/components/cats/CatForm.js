@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import TextInput from '../common/TextInput';
 import CheckBoxes from '../common/CheckBoxes';
 
-const CatForm = ({cat, onSave, onChange, saving}) => {
+const CatForm = ({cat, hobbies, onSave, onChange, saving}) => {
   return (
     <div>
       <form>
@@ -13,7 +13,7 @@ const CatForm = ({cat, onSave, onChange, saving}) => {
           value={cat.name}
           onChange={onChange}/>
 
-        <CheckBoxes collection={cat.hobbies} handleChange={onChange} />
+        <CheckBoxes collection={hobbies} handleChange={onChange} />
 
         <TextInput
           name="breed"
@@ -46,6 +46,7 @@ const CatForm = ({cat, onSave, onChange, saving}) => {
 
 CatForm.propTypes = {
   cat: React.PropTypes.object.isRequired,
+  hobbies: React.PropTypes.array.isRequired,
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import {loadCats} from './actions/catActions';
+import {loadHobbies} from './actions/hobbyActions';
 import '../node_modules/toastr/build/toastr.min.css';
   
 const store = configureStore();
@@ -17,7 +18,7 @@ const store = configureStore();
 // 4. courses reducer handles that action, recieves course payload and return new state that has courses: courses payload
 // 5. the CoursesPage component is connected to the store, so store's new state triggers the mapStateToProps function, which triggers the render function on that component
 store.dispatch(loadCats());
-// store.dispatch(loadAuthors());
+store.dispatch(loadHobbies());
 
 render(
   <Provider store={store}>

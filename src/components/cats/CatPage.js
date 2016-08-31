@@ -11,6 +11,7 @@ class CatPage extends React.Component {
     super(props, context);
     this.state = {
       cat: Object.assign({}, this.props.cat), 
+      hobbies: [...this.props.hobbies],
       saving: false,
       isEditing: true
     };
@@ -45,6 +46,7 @@ class CatPage extends React.Component {
       return (
       <CatForm 
         cat={this.state.cat} 
+        hobbies={this.state.hobbies}
         onSave={this.saveCat} 
         onChange={this.updateCatState} 
         saving={this.state.saving}/> 
@@ -65,7 +67,8 @@ class CatPage extends React.Component {
 
 
 CatPage.propTypes = {
-  cat: PropTypes.object.isRequired
+  cat: PropTypes.object.isRequired,
+  hobbies: PropTypes.array.isRequired
 };
 
 function getCatById(cats, id) {
@@ -73,13 +76,15 @@ function getCatById(cats, id) {
 }
 
 function mapStateToProps(state, ownProps) {
+  debugger;
+  const hobbies = state.hobbies
   let cat = {id: '', name: '', breed: '', weight: '', temperament: '', hobbies: []};
   const catId = ownProps.params.id;
   if (catId && state.cats.length > 0) {
     cat = getCatById(state.cats, ownProps.params.id);
   }
 
-  return {cat: cat};
+  return {cat: cat, hobbies: hobbies};
 }
 
 export default connect(mapStateToProps)(CatPage);
