@@ -75,16 +75,28 @@ function getCatById(cats, id) {
   return cats.filter(cat => cat.id == id)[0]
 }
 
+function hobbiesForCheckBoxes(hobbies, cat=null) {
+  return hobbies.map(hobby => {
+    if (cat && (cat.hobbies.filter(catHobby => catHobby.id == hobby.id).length > 0)) {
+      hobby['checked'] = true;
+    } else {
+      hobby['checked'] = false;
+    }
+
+    return hobby;
+  })
+}
 function mapStateToProps(state, ownProps) {
-  debugger;
-  const hobbies = state.hobbies
+  let hobbies = [];
   let cat = {id: '', name: '', breed: '', weight: '', temperament: '', hobbies: []};
   const catId = ownProps.params.id;
   if (catId && state.cats.length > 0) {
     cat = getCatById(state.cats, ownProps.params.id);
+    hobbies = hobbiesForCheckBoxes(state.hobbies, cat)
+  } else if (state.hobbies.length > 0){
+    hobbies = hobbiesForCheckBoxes(state.hobbies)
   }
-
-  return {cat: cat, hobbies: hobbies};
+    return {cat: cat, hobbies: hobbies};
 }
 
 export default connect(mapStateToProps)(CatPage);

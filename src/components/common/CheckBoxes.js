@@ -11,7 +11,7 @@ class CheckBoxes extends React.Component {
     return (
       <div key={item.id}>
         <label>{item.name}</label>
-        <input type="checkbox" name={item.name} value={item.id} checked={true} onChange={this.props.handleChange}/>
+        <input type="checkbox" name={item.name} value={item.id} checked={item.checked} onChange={this.props.handleChange}/>
       </div>
     )
   }
