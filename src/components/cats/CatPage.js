@@ -22,19 +22,20 @@ class CatPage extends React.Component {
     this.toggleEdit = this.toggleEdit.bind(this);
   }
 
-  toggleEdit() {
-    this.setState({isEditing: true});
-  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.cat.id != nextProps.cat.id) {
       this.setState({cat: Object.assign({}, nextProps.cat)});
     }
     if (this.props.checkBoxHobbies.length < nextProps.checkBoxHobbies.length) {
-      this.setState({catHobbies: [...nextProps.catHobbies], checkBoxHobbies: [...nextProps.checkBoxHobbies]})
+      this.setState({catHobbies: [...nextProps.catHobbies], checkBoxHobbies: [...nextProps.checkBoxHobbies]});
     }
 
-    this.setState({saving: false, isEditing: false})
+    this.setState({saving: false, isEditing: false});
+  }
+
+  toggleEdit() {
+    this.setState({isEditing: true});
   }
 
   updateCatHobbies(event) {
@@ -42,13 +43,13 @@ class CatPage extends React.Component {
     const hobbyId = event.target.value;
     const hobby = this.state.checkBoxHobbies.filter(hobby => hobby.id == hobbyId)[0];
     const checked = !hobby.checked;
-    hobby['checked'] = !hobby.checked
+    hobby['checked'] = !hobby.checked;
     if (checked) {
-      cat.hobby_ids.push(hobby.id)
+      cat.hobby_ids.push(hobby.id);
     } else {  
-      cat.hobby_ids.splice(cat.hobby_ids.indexOf(hobby.id))
+      cat.hobby_ids.splice(cat.hobby_ids.indexOf(hobby.id));
     }
-    this.setState({cat: cat})
+    this.setState({cat: cat});
 
   }
 
@@ -95,7 +96,8 @@ class CatPage extends React.Component {
 CatPage.propTypes = {
   cat: PropTypes.object.isRequired,
   catHobbies: PropTypes.array.isRequired,
-  checkBoxHobbies: PropTypes.array.isRequired
+  checkBoxHobbies: PropTypes.array.isRequired,
+  actions: PropTypes.array.isRequired
 };
 
 function getCatById(cats, id) {
