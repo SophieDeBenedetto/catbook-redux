@@ -38,6 +38,17 @@ export function updateCat(cat) {
   };
 }
 
+export function createCat(cat) {
+  return function (dispatch) {
+    return catApi.createCat(cat).then(responseCat => {
+      dispatch(createCatSuccess(responseCat));
+      return responseCat;
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
 // export function deleteCourse(course) {
 //   return function(dispatch) {
 //     return courseApi.deleteCourse(course).then(() => {

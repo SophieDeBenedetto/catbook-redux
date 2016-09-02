@@ -61,6 +61,7 @@ class CatPage extends React.Component {
   }
 
   saveCat(event) {
+    debugger;
     event.preventDefault();
     this.setState({saving: true});
     this.props.actions.updateCat(this.state.cat);
@@ -70,13 +71,16 @@ class CatPage extends React.Component {
   render() {
     if (this.state.isEditing) {
       return (
-      <CatForm 
-        cat={this.state.cat} 
-        hobbies={this.state.checkBoxHobbies}
-        onSave={this.saveCat} 
-        onChange={this.updateCatState} 
-        onHobbyChange={this.updateCatHobbies}
-        saving={this.state.saving}/> 
+      <div>
+        <h1>edit cat</h1>
+        <CatForm 
+          cat={this.state.cat} 
+          hobbies={this.state.checkBoxHobbies}
+          onSave={this.saveCat} 
+          onChange={this.updateCatState} 
+          onHobbyChange={this.updateCatHobbies}
+          saving={this.state.saving}/> 
+      </div>
       )
     }
     return (
@@ -97,7 +101,7 @@ CatPage.propTypes = {
   cat: PropTypes.object.isRequired,
   catHobbies: PropTypes.array.isRequired,
   checkBoxHobbies: PropTypes.array.isRequired,
-  actions: PropTypes.array.isRequired
+  actions: PropTypes.object.isRequired
 };
 
 function getCatById(cats, id) {
@@ -133,8 +137,10 @@ function mapStateToProps(state, ownProps) {
   const catId = ownProps.params.id;
   if (catId && state.cats.length > 0 && state.hobbies.length > 0) {
     cat = getCatById(state.cats, ownProps.params.id);
-    catHobbies = collectCatHobbies(stateHobbies, cat);
     checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies, cat);
+    if (cat.hobby_ids.length > 0) {
+      catHobbies = collectCatHobbies(stateHobbies, cat);
+    }
   } else if (state.cats.length > 0 && state.hobbies.length > 0){
     checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies)
   }
