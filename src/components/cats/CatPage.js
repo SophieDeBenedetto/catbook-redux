@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as catActions from '../../actions/catActions';
 import HobbyList from '../hobbies/HobbyList';
 import CatForm from './CatForm';
+import {browserHistory} from 'react-router';
 // import toastr from 'toastr'; 
 
 class CatPage extends React.Component {
@@ -20,6 +21,8 @@ class CatPage extends React.Component {
     this.updateCatState = this.updateCatState.bind(this);
     this.updateCatHobbies = this.updateCatHobbies.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.deleteCat = this.deleteCat.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
 
 
@@ -61,12 +64,21 @@ class CatPage extends React.Component {
   }
 
   saveCat(event) {
-    debugger;
     event.preventDefault();
     this.setState({saving: true});
     this.props.actions.updateCat(this.state.cat);
 
   } 
+
+  deleteCat(event) {
+    this.props.actions.deleteCat(this.state.cat).then(() => {
+      this.redirect();
+    })
+  }
+
+  redirect() {
+    browserHistory.push('/cats');
+  }
 
   render() {
     if (this.state.isEditing) {
@@ -91,6 +103,7 @@ class CatPage extends React.Component {
         <p>temperament: {this.state.cat.temperament}</p>
         <HobbyList hobbies={this.state.catHobbies} />
         <button onClick={this.toggleEdit} className="btn btn-default  ">edit</button>
+        <button onClick={this.deleteCat} className="btn btn-default  ">delete</button>
       </div>
     );
   }
@@ -110,7 +123,7 @@ function getCatById(cats, id) {
 
 function hobbiesForCheckBoxes(hobbies, cat=null) {
   return hobbies.map(hobby => {
-    if (cat && (cat.hobby_ids.filter(hobbyId => hobbyId == hobby.id).length > 0)) {
+    if (cat && cat.hobby_ids.length > 0 && (cat.hobby_ids.filter(hobbyId => hobbyId == hobby.id).length > 0)) {
       hobby['checked'] = true;
     } else {
       hobby['checked'] = false;
@@ -135,7 +148,7 @@ function mapStateToProps(state, ownProps) {
   let catHobbies = [];
   let cat = {name: '', breed: '', weight: '', temperament: '', hobby_ids: []};
   const catId = ownProps.params.id;
-  if (catId && state.cats.length > 0 && state.hobbies.length > 0) {
+  if (catId && catId == cat.id && state.cats.length > 0 && state.hobbies.length > 0) {
     cat = getCatById(state.cats, ownProps.params.id);
     checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies, cat);
     if (cat.hobby_ids.length > 0) {

@@ -13,9 +13,9 @@ export function createCatSuccess(cat) {
   return {type: types.CREATE_CAT_SUCCESS, cat}
 }
 
-// export function deleteCourseSuccess(course) {
-//   return {type: types.DELETE_COURSE_SUCCESS, course}
-// }
+export function deleteCatSuccess(cat) {
+  return {type: types.DELETE_CAT_SUCCESS, cat}
+}
 
 export function loadCats() {
   // make async call to api, handle promise, dispatch action when promise is resolved
@@ -49,16 +49,16 @@ export function createCat(cat) {
   };
 }
 
-// export function deleteCourse(course) {
-//   return function(dispatch) {
-//     return courseApi.deleteCourse(course).then(() => {
-//       console.log(`Deleted ${course.id}`)
-//       dispatch(deleteCourseSuccess(course));
-//     }).catch(error => {
-//       throw(error);
-//     })
-//   }
-// }
+export function deleteCat(cat) {
+  return function(dispatch) {
+    return catApi.deleteCat(cat).then(() => {
+      console.log(`Deleted ${cat.id}`)
+      dispatch(deleteCatSuccess(cat));
+    }).catch(error => {
+      throw(error);
+    })
+  }
+}
 
 
 
