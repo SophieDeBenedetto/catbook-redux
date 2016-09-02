@@ -26,7 +26,8 @@ class CatsPage extends React.Component {
 }
 
 CatsPage.propTypes = {
-  cats: PropTypes.array.isRequired
+  cats: PropTypes.array.isRequired,
+  children: PropTypes.object.isRequired
   // actions: PropTypes.object.isRequired
 };
 
