@@ -6,9 +6,6 @@ const CatListRow = ({cat}) => {
   return (
     <tr>
       <td><Link to={'/cats/' + cat.id}>{cat.name}</Link></td>
-      <td>{cat.breed}</td>
-      <td>{cat.weight}</td>
-      <td>{cat.temperament}</td>
     </tr>
   );
 };

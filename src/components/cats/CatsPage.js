@@ -12,9 +12,14 @@ class CatsPage extends React.Component {
   render() {
     const cats = this.props.cats;
     return (
-      <div>
+      <div className="col-md-12">
         <h1>Cats</h1>
-        <CatList cats={cats} />
+        <div className="col-md-4">
+          <CatList cats={cats} />
+        </div>
+        <div className="col-md-8">
+          {this.props.children}
+        </div>
       </div>
     );
   }

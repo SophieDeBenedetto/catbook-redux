@@ -7,9 +7,6 @@ const CatList = ({cats}) => {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Breed</th>
-          <th>Weight</th>
-          <th>Temperament</th>
         </tr>
       </thead>
       <tbody>
