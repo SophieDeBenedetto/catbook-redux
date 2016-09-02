@@ -1,23 +1,33 @@
-// fetch('flowers.jpg').then(function(response) {
-//   if(response.ok) {
-//     response.blob().then(function(myBlob) {
-//       var objectURL = URL.createObjectURL(myBlob);
-//       myImage.src = objectURL;
-//     });
-//   } else {
-//     console.log('Network response was not ok.');
-//   }
+
+
+// fetch("/login", {
+//   method: "POST",
+//   body: form
 // })
-// .catch(function(error) {
-//   console.log('There has been a problem with your fetch operation: ' + error.message);
-// });
 
 class CatsApi {
   static getAllCats() {
     return fetch('http://localhost:5000/api/v1/cats').then(response => {
-      return response.json()
+      return response.json();
     }).catch(error => {
-      return error
+      return error;
+    });
+  }
+
+  static updateCat(cat) {
+    const request = new Request(`http://localhost:5000/api/v1/cats/${cat.id}`, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }), 
+      body: JSON.stringify({cat: cat})
+    });
+
+
+    return fetch(request).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
     });
   }
 

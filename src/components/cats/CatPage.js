@@ -11,22 +11,48 @@ class CatPage extends React.Component {
     super(props, context);
     this.state = {
       cat: Object.assign({}, this.props.cat), 
-      hobbies: [...this.props.hobbies],
+      catHobbies: Object.assign([], [...this.props.catHobbies]),
+      checkBoxHobbies: Object.assign([], [...this.props.checkBoxHobbies]),
       saving: false,
-      isEditing: true
+      isEditing: false
     };
     this.saveCat = this.saveCat.bind(this);
     this.updateCatState = this.updateCatState.bind(this);
+    this.updateCatHobbies = this.updateCatHobbies.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+  }
+
+  toggleEdit() {
+    this.setState({isEditing: true});
   }
 
   componentWillReceiveProps(nextProps) {
-     if (this.props.cat.id != nextProps.cat.id) {
+    if (this.props.cat.id != nextProps.cat.id) {
       this.setState({cat: Object.assign({}, nextProps.cat)});
     }
+    if (this.props.checkBoxHobbies.length < nextProps.checkBoxHobbies.length) {
+      this.setState({catHobbies: [...nextProps.catHobbies], checkBoxHobbies: [...nextProps.checkBoxHobbies]})
+    }
+
+    this.setState({saving: false, isEditing: false})
+  }
+
+  updateCatHobbies(event) {
+    const cat = this.state.cat;
+    const hobbyId = event.target.value;
+    const hobby = this.state.checkBoxHobbies.filter(hobby => hobby.id == hobbyId)[0];
+    const checked = !hobby.checked;
+    hobby['checked'] = !hobby.checked
+    if (checked) {
+      cat.hobby_ids.push(hobby.id)
+    } else {  
+      cat.hobby_ids.splice(cat.hobby_ids.indexOf(hobby.id))
+    }
+    this.setState({cat: cat})
+
   }
 
   updateCatState(event) {
-    debugger;
     const field = event.target.name;
     const cat = this.state.cat;
     cat[field] = event.target.value;
@@ -36,8 +62,7 @@ class CatPage extends React.Component {
   saveCat(event) {
     event.preventDefault();
     this.setState({saving: true});
-    // this.props.actions.saveCat(this.state.course)
-    //   .then(() => {this.redirect()});
+    this.props.actions.updateCat(this.state.cat);
 
   } 
 
@@ -46,9 +71,10 @@ class CatPage extends React.Component {
       return (
       <CatForm 
         cat={this.state.cat} 
-        hobbies={this.state.hobbies}
+        hobbies={this.state.checkBoxHobbies}
         onSave={this.saveCat} 
         onChange={this.updateCatState} 
+        onHobbyChange={this.updateCatHobbies}
         saving={this.state.saving}/> 
       )
     }
@@ -58,26 +84,27 @@ class CatPage extends React.Component {
         <p>breed: {this.state.cat.breed}</p>
         <p>weight: {this.state.cat.weight}</p>
         <p>temperament: {this.state.cat.temperament}</p>
-        <HobbyList hobbies={this.state.cat.hobbies} />
+        <HobbyList hobbies={this.state.catHobbies} />
+        <button onClick={this.toggleEdit} className="btn btn-default  ">edit</button>
       </div>
     );
   }
 }
 
 
-
 CatPage.propTypes = {
   cat: PropTypes.object.isRequired,
-  hobbies: PropTypes.array.isRequired
+  catHobbies: PropTypes.array.isRequired,
+  checkBoxHobbies: PropTypes.array.isRequired
 };
 
 function getCatById(cats, id) {
-  return cats.filter(cat => cat.id == id)[0]
+  return Object.assign({}, cats.filter(cat => cat.id == id)[0])
 }
 
 function hobbiesForCheckBoxes(hobbies, cat=null) {
   return hobbies.map(hobby => {
-    if (cat && (cat.hobbies.filter(catHobby => catHobby.id == hobby.id).length > 0)) {
+    if (cat && (cat.hobby_ids.filter(hobbyId => hobbyId == hobby.id).length > 0)) {
       hobby['checked'] = true;
     } else {
       hobby['checked'] = false;
@@ -86,17 +113,40 @@ function hobbiesForCheckBoxes(hobbies, cat=null) {
     return hobby;
   })
 }
-function mapStateToProps(state, ownProps) {
-  let hobbies = [];
-  let cat = {id: '', name: '', breed: '', weight: '', temperament: '', hobbies: []};
-  const catId = ownProps.params.id;
-  if (catId && state.cats.length > 0) {
-    cat = getCatById(state.cats, ownProps.params.id);
-    hobbies = hobbiesForCheckBoxes(state.hobbies, cat)
-  } else if (state.hobbies.length > 0){
-    hobbies = hobbiesForCheckBoxes(state.hobbies)
-  }
-    return {cat: cat, hobbies: hobbies};
+
+function collectCatHobbies(hobbies, cat) {
+  let selected = hobbies.map(hobby => {
+    if (cat.hobby_ids.filter(hobbyId => hobbyId == hobby.id).length > 0) {
+      return hobby;
+    }
+  })
+  return selected.filter(el => el != undefined)
 }
 
-export default connect(mapStateToProps)(CatPage);
+function mapStateToProps(state, ownProps) {
+  const stateHobbies = Object.assign([], state.hobbies)
+  let checkBoxHobbies = [];
+  let catHobbies = [];
+  let cat = {name: '', breed: '', weight: '', temperament: '', hobby_ids: []};
+  const catId = ownProps.params.id;
+  if (catId && state.cats.length > 0 && state.hobbies.length > 0) {
+    cat = getCatById(state.cats, ownProps.params.id);
+    catHobbies = collectCatHobbies(stateHobbies, cat);
+    checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies, cat);
+  } else if (state.cats.length > 0 && state.hobbies.length > 0){
+    checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies)
+  }
+    return {cat: cat, checkBoxHobbies: checkBoxHobbies, catHobbies: catHobbies};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(catActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CatPage);
+
+
+
+
+
