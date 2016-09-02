@@ -1,5 +1,6 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
+import {browserHistory} from 'react-router';
 
 
 export default function catReducer(state = initialState.cats, action) {
@@ -22,6 +23,7 @@ export default function catReducer(state = initialState.cats, action) {
       const newState = Object.assign([], state);
       const indexOfCatToDelete = state.findIndex(cat => {return cat.id == action.cat.id})
       newState.splice(indexOfCatToDelete, 1);
+      browserHistory.push('/cats');
       return newState;
     }
     default: 

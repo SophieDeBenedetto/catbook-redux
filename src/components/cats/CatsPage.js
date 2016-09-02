@@ -12,7 +12,6 @@ class CatsPage extends React.Component {
 
   render() {
     const cats = this.props.cats;
-    debugger;
     return (
       <div className="col-md-12">
         <h1>Cats <Link to={'/cats/new'} className="btn btn-primary">+ cat</Link></h1>
@@ -39,7 +38,6 @@ CatsPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   // state means redux store state
   // means our component has this.props.cats
-  debugger;
   return {
     cats: state.cats
   };
