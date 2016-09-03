@@ -48,9 +48,10 @@ class NewCatPage extends React.Component {
 
   saveCat(event) {
     event.preventDefault();
-    this.props.actions.createCat(this.state.cat).then((cat) => {
-      this.redirect(cat);
-    });
+    this.props.actions.createCat(this.state.cat)
+    // .then((cat) => {
+    //   this.redirect(cat);
+    // });
 
   }
   

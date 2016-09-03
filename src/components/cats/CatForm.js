@@ -10,7 +10,7 @@ class CatForm extends React.Component {
 
   makeCheckBoxes() {
     return this.props.hobbies.map(hobby => {
-      return <CheckBox item={hobby} handleChange={this.props.onHobbyChange}/>
+      return <CheckBox item={hobby} handleChange={this.props.onHobbyChange} key={hobby.id}/>
     })
   }
 

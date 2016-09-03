@@ -115,29 +115,20 @@ CatPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function catPresentInState(cats, id) {
-  cats.find(cat => cat.id == id) ? true : false
-}
-
 function getCatById(cats, id) {
   let cat = cats.find(cat => cat.id == id)
   return Object.assign({}, cat)
 }
 
 function hobbiesForCheckBoxes(hobbies, cat=null) {
-  debugger;
   return hobbies.map(hobby => {
-    debugger;
-    if (cat.id) {
-      if (cat.hobby_ids.length > 0 && (cat.hobby_ids.filter(hobbyId => hobbyId == hobby.id).length > 0)) {
-        hobby['checked'] = true;
-      }
+    if (cat && cat.hobby_ids.filter(hobbyId => hobbyId == hobby.id).length > 0) {
+      hobby['checked'] = true;
     } else {
       hobby['checked'] = false;
     }
-
     return hobby;
-  })
+  });
 }
 
 function collectCatHobbies(hobbies, cat) {
@@ -157,13 +148,13 @@ function mapStateToProps(state, ownProps) {
   const catId = ownProps.params.id;
   if (catId && state.cats.length > 0 && state.hobbies.length > 0) {
     cat = getCatById(state.cats, ownProps.params.id);
-    checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies, cat);
-    if (cat.hobby_ids.length > 0) {
+    if (cat.id && cat.hobby_ids.length > 0) {
+      checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies, cat);
       catHobbies = collectCatHobbies(stateHobbies, cat);
+    } else {
+      checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies)
     }
-  } else if (state.cats.length > 0 && state.hobbies.length > 0){
-    checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies)
-  }
+  } 
     return {cat: cat, checkBoxHobbies: checkBoxHobbies, catHobbies: catHobbies};
 }
 
