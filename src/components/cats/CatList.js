@@ -1,20 +1,15 @@
 import React, {PropTypes} from 'react';
-import CatListRow from './CatListRow';
+import CatListItem from './CatListItem';
+import {Link} from 'react-router';
+
 
 const CatList = ({cats}) => {
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
+      <ul className="list-group">
         {cats.map(cat => 
-          <CatListRow key={cat.id} cat={cat} />
+           <li className="list-group-item"><Link to={'/cats/' + cat.id}>{cat.name}</Link></li>
         )}
-      </tbody>
-    </table>
+      </ul>
   );
 };
 

@@ -14,7 +14,6 @@ class NewCatPage extends React.Component {
       cat: {name: '', breed: '', weight: '', temperament: '', hobby_ids: []},
       saving: false
     };
-    this.redirect = this.redirect.bind(this);
     this.saveCat = this.saveCat.bind(this);
     this.updateCatHobbies = this.updateCatHobbies.bind(this);
     this.updateCatState = this.updateCatState.bind(this);
@@ -42,17 +41,9 @@ class NewCatPage extends React.Component {
     return this.setState({cat: cat});
   }
 
-  redirect(cat) {
-    browserHistory.push(`/cats/${cat.id}`);
-  }
-
   saveCat(event) {
     event.preventDefault();
     this.props.actions.createCat(this.state.cat)
-    // .then((cat) => {
-    //   this.redirect(cat);
-    // });
-
   }
   
   render() {

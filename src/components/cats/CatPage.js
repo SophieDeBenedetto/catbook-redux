@@ -11,9 +11,9 @@ class CatPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      cat: Object.assign({}, this.props.cat), 
-      catHobbies: Object.assign([], [...this.props.catHobbies]),
-      checkBoxHobbies: Object.assign([], [...this.props.checkBoxHobbies]),
+      cat: this.props.cat, 
+      catHobbies: this.props.catHobbies,
+      checkBoxHobbies: props.checkBoxHobbies,
       saving: false,
       isEditing: false
     };
@@ -28,10 +28,10 @@ class CatPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.cat.id != nextProps.cat.id) {
-      this.setState({cat: Object.assign({}, nextProps.cat)});
+      this.setState({cat: nextProps.cat});
     }
     if (this.props.checkBoxHobbies.length < nextProps.checkBoxHobbies.length) {
-      this.setState({catHobbies: [...nextProps.catHobbies], checkBoxHobbies: [...nextProps.checkBoxHobbies]});
+      this.setState({catHobbies: nextProps.catHobbies, checkBoxHobbies: nextProps.checkBoxHobbies});
     }
 
     this.setState({saving: false, isEditing: false});
@@ -148,7 +148,7 @@ function mapStateToProps(state, ownProps) {
   const catId = ownProps.params.id;
   if (catId && state.cats.length > 0 && state.hobbies.length > 0) {
     cat = getCatById(state.cats, ownProps.params.id);
-    if (cat.id && cat.hobby_ids.length > 0) {
+    if (cat.hobby_ids.length > 0) {
       checkBoxHobbies = hobbiesForCheckBoxes(stateHobbies, cat);
       catHobbies = collectCatHobbies(stateHobbies, cat);
     } else {

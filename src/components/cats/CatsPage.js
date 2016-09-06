@@ -6,9 +6,9 @@ import CatList from './CatList';
 import NewCatPage from './NewCatPage';
 
 class CatsPage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
+  // constructor(props, context) {
+  //   super(props, context);
+  // }
 
   render() {
     const cats = this.props.cats;
