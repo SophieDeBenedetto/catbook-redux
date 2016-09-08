@@ -7,7 +7,7 @@ const CatList = ({cats}) => {
   return (
       <ul className="list-group">
         {cats.map(cat => 
-           <li className="list-group-item"><Link to={'/cats/' + cat.id}>{cat.name}</Link></li>
+           <li className="list-group-item" key={cat.id}><Link to={'/cats/' + cat.id}>{cat.name}</Link></li>
         )}
       </ul>
   );

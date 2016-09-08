@@ -20,7 +20,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
-// app.use(favicon(__dirname + '/assets/public/favicon.ico'));
 app.use(favicon(path.join(__dirname,'assets','public','favicon.ico')));
 
 app.get('*', function(req, res) {

@@ -10,5 +10,6 @@
 
 export default {
   cats: [],
-  hobbies: []
+  hobbies: [],
+  session: false
 }
