@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import { Link, IndexLink } from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import auth from '../../auth/authenticator';
 import * as sessionActions from '../../actions/sessionActions';
 
 
@@ -14,12 +13,10 @@ class Header extends React.Component {
 
   logOut(event) {
     event.preventDefault();
-    auth.logOut();
     this.props.actions.logOutUser();
   }
 
   render() {
-    debugger;
     if (this.props.logged_in) {
       return (
         <nav>
