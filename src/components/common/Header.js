@@ -3,7 +3,7 @@ import { Link, IndexLink } from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import auth from '../../auth/authenticator';
-import * as userActions from '../../actions/userActions';
+import * as sessionActions from '../../actions/sessionActions';
 
 
 class Header extends React.Component {
@@ -15,11 +15,11 @@ class Header extends React.Component {
   logOut(event) {
     event.preventDefault();
     auth.logOut();
-    debugger;
     this.props.actions.logOutUser();
   }
 
   render() {
+    debugger;
     if (this.props.logged_in) {
       return (
         <nav>
@@ -57,9 +57,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  debugger;
   return {
-    actions: bindActionCreators(userActions, dispatch)
+    actions: bindActionCreators(sessionActions, dispatch)
   };
 }
 

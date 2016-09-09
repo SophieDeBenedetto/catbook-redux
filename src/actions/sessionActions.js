@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import userApi from '../api/UserApi';
+import sessionApi from '../api/SessionApi';
 
 export function loginSuccess() {
   return {type: types.LOG_IN_SUCCESS}
@@ -7,7 +7,7 @@ export function loginSuccess() {
 
 export function loginUser(credentials) {
   return function(dispatch) {
-    return userApi.login(credentials).then(response => {
+    return sessionApi.login(credentials).then(response => {
       localStorage.setItem('jwt', response.jwt);
       dispatch(loginSuccess());
     }).catch(error => {

@@ -1,4 +1,4 @@
-class UserApi {
+class SessionApi {
   static login(credentials) {
     const request = new Request('http://localhost:5000/login', {
       method: 'POST',
@@ -17,4 +17,4 @@ class UserApi {
   } 
 }
 
-export default UserApi;
+export default SessionApi;

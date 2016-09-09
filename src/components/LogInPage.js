@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import TextInput from './common/TextInput';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import * as userActions from '../actions/userActions';
+import * as sessionActions from '../actions/sessionActions';
 
 class LogInPage extends React.Component {
   constructor(props) {
@@ -37,6 +37,7 @@ class LogInPage extends React.Component {
           <TextInput
             name="password"
             label="password"
+            type="password"
             value={this.state.credentials.password}
             onChange={this.onChange}/>
 
@@ -52,7 +53,7 @@ class LogInPage extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(userActions, dispatch)
+    actions: bindActionCreators(sessionActions, dispatch)
   };
 }
 export default connect(null, mapDispatchToProps)(LogInPage);
