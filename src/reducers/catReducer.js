@@ -4,17 +4,11 @@ import {browserHistory} from 'react-router';
 
 
 export default function catReducer(state = initialState.cats, action) {
-  // state variable here reps just an array of courses
   switch(action.type) {
     case types.LOAD_CATS_SUCCESS:
-      // return action.cats;
-     // return action.cats.map(cat => Object.assign({}, cat, Object.assign([], cat.hobby_ids)))
-     // return Object.assign([], state, action.cats)
-     // return Object.assign({}, state, {cats: action.cats})
      return action.cats
     case types.CREATE_CAT_SUCCESS:
       browserHistory.push(`/cats/${action.cat.id}`)
-      debugger;
       return [
         ...state.filter(cat => cat.id !== action.cat.id),
         Object.assign({}, action.cat)
