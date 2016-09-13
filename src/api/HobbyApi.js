@@ -1,3 +1,4 @@
+
 class HobbyApi {
   static requestHeaders() {
     return {'AUTHORIZATION': `Bearer ${localStorage.jwt}`}
@@ -5,7 +6,7 @@ class HobbyApi {
 
   static getAllHobbies() {
     const headers = this.requestHeaders();
-    const request = new Request('http://localhost:5000/api/v1/hobbies', {
+    const request = new Request(`${process.env.API_HOST}/api/v1/hobbies`, {
       method: 'GET', 
       headers: headers
     })

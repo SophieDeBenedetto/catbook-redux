@@ -1,6 +1,6 @@
 class SessionApi {
   static login(credentials) {
-    const request = new Request('http://localhost:5000/login', {
+    const request = new Request(`${process.env.API_HOST}/login`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json'

@@ -6,7 +6,7 @@ class CatsApi {
 
   static getAllCats() {
     const headers = this.requestHeaders();
-    const request = new Request('http://localhost:5000/api/v1/cats', {
+    const request = new Request(`${process.env.API_HOST}/api/v1/cats`, {
       method: 'GET',
       headers: headers
     });
@@ -20,7 +20,7 @@ class CatsApi {
 
   static updateCat(cat) {
     const headers = Object.assign({'Content-Type': 'application/json'}, this.requestHeaders());
-    const request = new Request(`http://localhost:5000/api/v1/cats/${cat.id}`, {
+    const request = new Request(`${process.env.API_HOST}/api/v1/cats/${cat.id}`, {
       method: 'PUT',
       headers: headers, 
       body: JSON.stringify({cat: cat})
@@ -36,7 +36,7 @@ class CatsApi {
 
   static createCat(cat) {
     const headers = Object.assign({'Content-Type': 'application/json'}, this.requestHeaders());
-    const request = new Request('http://localhost:5000/api/v1/cats/', {
+    const request = new Request(`${process.env.API_HOST}/api/v1/cats`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({cat: cat})
@@ -52,7 +52,7 @@ class CatsApi {
 
   static deleteCat(cat) {
     const headers = Object.assign({'Content-Type': 'application/json'}, this.requestHeaders());
-    const request = new Request(`http://localhost:5000/api/v1/cats/${cat.id}`, {
+    const request = new Request(`${process.env.API_HOST}/api/v1/cats/${cat.id}`, {
       method: 'DELETE', 
       headers: headers
     });

@@ -24,7 +24,8 @@ export default {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify('production'),
+        'API_HOST': JSON.stringify('https://catbook-api.herokuapp.com')
       }
     })
   ],

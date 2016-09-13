@@ -9,7 +9,6 @@ import favicon from 'serve-favicon';
 
 
 
-// const favicon = require('serve-favicon');
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
