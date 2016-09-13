@@ -9,18 +9,28 @@
     "start": "npm-run-all --parallel open:src lint:watch",
     "open:src": "babel-node tools/srcServer.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "clean-public": "npm run remove-public && mkdir public",
+    "remove-public": "node_modules/.bin/rimraf ./public",
+    "build:html": "babel-node tools/buildHtml.js",
+    "prebuild": "npm-run-all clean-public lint build:html",
+    "build": "babel-node tools/build.js",
+    "postbuild": "babel-node tools/publicServer.js"
   },
   "dependencies": {
+    "babel-polyfill": "6.8.0",
+    "compression": "^1.6.1",
     "bootstrap": "^3.3.7",
+    "open": "0.0.5",
+    "cheerio": "^0.20.0",
+    "colors": "1.1.2",
     "react": "^15.3.1",
     "react-favicon": "0.0.4",
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "serve-favicon": "^2.3.0",
-    "toastr": "^2.1.2"
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
