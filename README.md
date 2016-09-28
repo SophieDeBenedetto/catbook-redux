@@ -2,6 +2,11 @@
 
 A React Redux application that consumes data from the CatBook Rails 5 API. Users can log in, create, edit, delete and view cats and their associated hobbies (yes, cats have hobbies). 
 
+You can play around with the deployed app [here](https://catbook-react.herokuapp.com/). Log in with sample user:
+
+* username: sophie
+* password: password
+
 Uses:
 * React
 * Redux
