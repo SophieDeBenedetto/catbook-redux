@@ -1,10 +1,10 @@
 class Auth {
   static loggedIn() {
-    return !!localStorage.jwt;
+    return !!sessionStorage.jwt;
   }
 
   static logOut() {
-    localStorage.removeItem('jwt');
+    sessionStorage.removeItem('jwt');
   }
 }
 
