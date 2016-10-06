@@ -10,7 +10,7 @@ class CatForm extends React.Component {
 
   makeHobbyFormFields() {
     return this.props.cat.hobbies.map(hobby => {
-      return <HobbyForm hobby={hobby} handleChange={this.props.onHobbyChange} key={hobby.id} addHobby={this.props.addHobby}/>
+      return <HobbyForm hobby={hobby} handleChange={this.props.onHobbyChange} key={hobby.id} handleTypeChange={this.props.onTypeChange}/>
     })
   }
 

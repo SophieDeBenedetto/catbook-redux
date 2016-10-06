@@ -13,12 +13,14 @@ class NewCatPage extends React.Component {
     this.state = {
       cat: {name: '', breed: '', weight: '', temperament: '', 
       hobbies: [
-        {id: 1, name: ''}
+        {id: 1, name: '', types: [{id: 1, name: ''}]}
       ]},
       saving: false
     };
     this.saveCat = this.saveCat.bind(this);
     this.updateCatHobbies = this.updateCatHobbies.bind(this);
+    this.updateCatTypes = this.updateCatTypes.bind(this);
+    this.addHobby = this.addHobby.bind(this);
     this.updateCatState = this.updateCatState.bind(this);
   }
 
@@ -32,6 +34,18 @@ class NewCatPage extends React.Component {
     const index = this.state.cat.hobbies.indexOf(hobby)
     this.state.cat.hobbies.splice(index)
     this.setState(Object.assign(this.state.cat, {hobbies: [...this.state.cat.hobbies, hobbyData]}))
+  }
+
+  updateCatTypes(typeData) {
+    let hobby = this.state.cat.hobbies.find(hobby => {return hobby.id == typeData.hobbyId})
+    let type = hobby.types.find(type => {return type.id == typeData.id})
+    hobby.types.splice(hobby.types.indexOf(type))
+    delete typeData.hobbyId
+    const index = this.state.cat.hobbies.indexOf(hobby)
+    this.state.cat.hobbies.splice(index)
+    let newHobby = Object.assign(hobby, {types: [...hobby.types, typeData]})
+    this.setState({cat: Object.assign(this.state.cat, {hobbies: [...this.state.cat.hobbies, newHobby]})})
+   
   }
 
   updateCatState(event) {
@@ -56,7 +70,8 @@ class NewCatPage extends React.Component {
           onSave={this.saveCat}
           onChange={this.updateCatState}
           onHobbyChange={this.updateCatHobbies}
-          addHobby={this.addHobby.bind(this)}/>
+          onTypeChange={this.updateCatTypes}
+          addHobby={this.addHobby}/>
       </div>
     );
   }
