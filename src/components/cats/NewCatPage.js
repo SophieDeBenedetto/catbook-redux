@@ -11,7 +11,10 @@ class NewCatPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cat: {name: '', breed: '', weight: '', temperament: '', hobby_ids: []},
+      cat: {name: '', breed: '', weight: '', temperament: '', 
+      hobbies: [
+        {id: 1, name: ''}
+      ]},
       saving: false
     };
     this.saveCat = this.saveCat.bind(this);
@@ -19,19 +22,16 @@ class NewCatPage extends React.Component {
     this.updateCatState = this.updateCatState.bind(this);
   }
 
-  updateCatHobbies(event) {
-    const cat = this.state.cat;
-    const hobbyId = event.target.value;
-    const hobby = this.props.checkBoxHobbies.filter(hobby => hobby.id == hobbyId)[0];
-    const checked = !hobby.checked;
-    hobby['checked'] = !hobby.checked;
-    if (checked) {
-      cat.hobby_ids.push(hobby.id);
-    } else {  
-      cat.hobby_ids.splice(cat.hobby_ids.indexOf(hobby.id));
-    }
+  addHobby() {
+    const hobbyId = this.state.cat.hobbies[this.state.cat.hobbies.length - 1].id + 1
+    this.setState({cat: Object.assign(this.state.cat, {hobbies: [...this.state.cat.hobbies, {id: hobbyId, name: ''}]})})
+  }
 
-    this.setState({cat: cat});
+  updateCatHobbies(hobbyData) {
+    let hobby = this.state.cat.hobbies.find(hobby => {return hobby.id == hobbyData.id})
+    const index = this.state.cat.hobbies.indexOf(hobby)
+    this.state.cat.hobbies.splice(index)
+    this.setState(Object.assign(this.state.cat, {hobbies: [...this.state.cat.hobbies, hobbyData]}))
   }
 
   updateCatState(event) {
@@ -42,6 +42,7 @@ class NewCatPage extends React.Component {
   }
 
   saveCat(event) {
+    debugger;
     event.preventDefault();
     this.props.actions.createCat(this.state.cat)
   }
@@ -52,10 +53,10 @@ class NewCatPage extends React.Component {
         <h1>new cat</h1>
         <CatForm 
           cat={this.state.cat} 
-          hobbies={this.props.checkBoxHobbies}
           onSave={this.saveCat}
           onChange={this.updateCatState}
-          onHobbyChange={this.updateCatHobbies}/>
+          onHobbyChange={this.updateCatHobbies}
+          addHobby={this.addHobby.bind(this)}/>
       </div>
     );
   }

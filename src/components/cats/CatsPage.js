@@ -28,7 +28,8 @@ CatsPage.propTypes = {
   children: PropTypes.object
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
+
   return {
     cats: state.cats
   };

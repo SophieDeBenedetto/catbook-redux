@@ -1,21 +1,26 @@
 import React, {PropTypes} from 'react';
 import TextInput from '../common/TextInput';
-import CheckBox from '../common/CheckBox';
+import HobbyForm from '../hobbies/HobbyForm';
 
 class CatForm extends React.Component {
   constructor(props) {
     super(props);
-    this.makeCheckBoxes = this.makeCheckBoxes.bind(this);
+    this.makeHobbyFormFields = this.makeHobbyFormFields.bind(this)
   }
 
-  makeCheckBoxes() {
-    return this.props.hobbies.map(hobby => {
-      return <CheckBox item={hobby} handleChange={this.props.onHobbyChange} key={hobby.id}/>
+  makeHobbyFormFields() {
+    return this.props.cat.hobbies.map(hobby => {
+      return <HobbyForm hobby={hobby} handleChange={this.props.onHobbyChange} key={hobby.id} addHobby={this.props.addHobby}/>
     })
   }
 
+  addHobbyFormField(event) {
+    event.preventDefault();
+    this.props.addHobby();
+  }
+
   render() {
-    const boxes = this.makeCheckBoxes();
+    const hobbyFormFields = this.makeHobbyFormFields();
     return (
       <div>
         <form>
@@ -24,8 +29,6 @@ class CatForm extends React.Component {
             label="name"
             value={this.props.cat.name}
             onChange={this.props.onChange}/>
-
-          {boxes}
 
           <TextInput
             name="breed"
@@ -44,6 +47,11 @@ class CatForm extends React.Component {
             label="temperament"
             value={this.props.cat.temperament}
             onChange={this.props.onChange}/>
+
+            <h3>hobbies:</h3>
+            <button onClick={this.addHobbyFormField.bind(this)}>+ hobby</button>
+
+            {hobbyFormFields}
 
           <input
             type="submit"
