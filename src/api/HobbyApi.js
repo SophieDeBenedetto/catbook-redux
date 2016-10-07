@@ -1,7 +1,7 @@
 
 class HobbyApi {
   static requestHeaders() {
-    return {'AUTHORIZATION': `Bearer ${localStorage.jwt}`}
+    return {'AUTHORIZATION': `Bearer ${sessionStorage.jwt}`}
   }
 
   static getAllHobbies() {
