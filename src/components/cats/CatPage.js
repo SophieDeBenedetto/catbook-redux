@@ -165,6 +165,13 @@ function mapDispatchToProps(dispatch) {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CatPage);
 
+// connect:
+// + will invoke mapDispatchToProps, with an argument of the store's dispatch function
+// + it has access to the store, b/c you passed store in via the provider 
+// + bindActionCreators will take your collection of action creator functions
+// + iterate over it, wrap each AC function in store.dispatch(AC function)
+// + make them available to your component as this.props.actions = {name of an action: store.dispatch(ac function)}
+
 
 
 
