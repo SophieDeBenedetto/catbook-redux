@@ -1,5 +1,6 @@
 class SessionApi {
   static login(credentials) {
+    debugger;
     const request = new Request(`${process.env.API_HOST}/login`, {
       method: 'POST',
       headers: new Headers({
