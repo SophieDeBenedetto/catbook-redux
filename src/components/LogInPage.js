@@ -7,7 +7,7 @@ import * as sessionActions from '../actions/sessionActions';
 class LogInPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {credentials: {email: '', password: ''}}
+    this.state = {credentials: {email: 'sophie@email.com', password: 'password'}}
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
@@ -45,6 +45,7 @@ class LogInPage extends React.Component {
             type="submit"
             className="btn btn-primary"
             onClick={this.onSave}/>
+            {" "}
         </form>
       </div>
   );
