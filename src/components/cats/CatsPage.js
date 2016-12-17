@@ -4,9 +4,14 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import CatList from './CatList';
 import NewCatPage from './NewCatPage';
+import * as actions from '../../actions/catActions'
 
 class CatsPage extends React.Component {
-
+  componentWillMount() {
+    if (this.props.cats[0].id == '') {
+      this.props.actions.loadCats();
+    }
+  }
   render() {
     const cats = this.props.cats;
     return (
@@ -29,12 +34,22 @@ CatsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  return {
-    cats: state.cats
-  };
+  if (state.cats.length > 0) {
+    return {
+      cats: state.cats
+    };
+  } else {
+    return {
+      cats: [{id: '', name: '', breed: '', temperament: '', weight: '', hobbies: []}]
+    }
+  }
 }
 
-export default connect(mapStateToProps)(CatsPage);
+function mapDispatchToProps(dispatch) {
+  return {actions: bindActionCreators(actions, dispatch)}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CatsPage);
 
 
 

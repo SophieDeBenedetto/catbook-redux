@@ -10,9 +10,11 @@ export function loginSuccess() {
 export function loginUser(credentials) {
   return function(dispatch) {
     return sessionApi.login(credentials).then(response => {
+      debugger
       sessionStorage.setItem('jwt', response.jwt);
       dispatch(loginSuccess());
     }).catch(error => {
+      debugger;
       throw(error);
     });
   };
