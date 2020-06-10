@@ -18,3 +18,10 @@ Uses:
 
 This app was built out to accompany my series of eight blog posts on building a simpel React Redux application. 
 You can check out those posts [here](http://www.thegreatcodeadventure.com/building-a-simple-crud-app-with-react-redux-part-1/#table-of-contents), view my post on JWT auth with React [here](http://www.thegreatcodeadventure.com/jwt-authentication-with-react-redux/), and my post on deploying React Redux to Heroku [here](http://www.thegreatcodeadventure.com/deploying-react-redux-to-heroku/). 
+
+```ruby 
+def test 
+end
+```
+
+@sophiedebenedetto
